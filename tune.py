@@ -6,7 +6,7 @@ dtype = None
 load_in_4bit = True
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-  model_name = "cognitivecomputations/dolphin-2.9.2-qwen2-7b",
+  model_name = "facebook/opt-350m",
   max_seq_length = max_seq_length,
   dtype = dtype,
   load_in_4bit = load_in_4bit
@@ -59,9 +59,6 @@ trainer = SFTTrainer(
 )
 
 trainer_stats = trainer.train()
-
-model.save_pretrained("lora_model")
-tokenizer.save_pretrained("lora_model")
 
 model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
 tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
