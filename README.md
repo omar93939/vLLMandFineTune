@@ -55,7 +55,7 @@ Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy 
     Body:
       {
         "model": "Qwen/Qwen2-7B-Instruct-GPTQ-Int4",
-        "prompt": "User: Hey there! What's up?Creator: Not much haha! How about you?User: Not much myself, wanna fuck?Creator: Sure! You already hard baby?User: Of course I am, you made me this way. Show me your ass now.Creator: ",
+        "prompt": "User: Hey there! What's up?Creator: ",
         "max_tokens": 1000,
         "temperature": 0.1,
         "stop": "User:"
