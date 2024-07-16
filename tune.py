@@ -12,8 +12,6 @@ model, tokenizer = FastLanguageModel.from_pretrained(
   load_in_4bit = load_in_4bit
 )
 
-EOS_TOKEN = tokenizer.eos_token
-
 from datasets import load_dataset
 dataset = load_dataset("PornMixer/ExpectedGeneration")
 
