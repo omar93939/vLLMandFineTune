@@ -1,12 +1,12 @@
 from unsloth import FastLanguageModel
 import torch
 
-max_seq_length = 131072
+max_seq_length = 16000
 dtype = None
 load_in_4bit = True
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-  model_name = "Qwen/Qwen2-7B-Instruct-GPTQ-Int4",
+  model_name = "cognitivecomputations/dolphin-2.9.2-qwen2-7b",
   max_seq_length = max_seq_length,
   dtype = dtype,
   load_in_4bit = load_in_4bit
