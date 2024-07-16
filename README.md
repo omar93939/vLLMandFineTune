@@ -24,18 +24,19 @@ SSH into the Pod (PuTTY > Runpod):
 
 3.5. 
   IF long context size model (i.e. Qwen2 7b & 131072)
-  
 
 4. 
   python -m vllm.entrypoints.openai.api_server --model `model_name` *if lora* --enable-lora --lora-modules `name`=`path` `name`=`path`
 
   (example LoRA: 
     git clone https://huggingface.co/PornMixer/dolphin-2.9.2-qwen2-7b-LoRA
-    python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen2-0.5B-Instruct --enable-lora --lora-modules lora=dolphin-2.9.2-qwen2-7b-LoRA
+    python -m vllm.entrypoints.openai.api_server --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=dolphin-2.9.2-qwen2-7b-LoRA
   )
 
 5. 
 Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy Link Address`
+
+
 
 1) 
   Prompt Template:
@@ -52,6 +53,15 @@ Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy 
   }
 
   Example Prompt:
+  curl http://localhost:8000/v1/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "lora",
+        "prompt": "San Francisco is a",
+        "max_tokens": 7,
+        "temperature": 0
+    }'
+
   {
     Header-Type: application/json,
     Body:
