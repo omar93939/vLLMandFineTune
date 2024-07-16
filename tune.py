@@ -64,3 +64,6 @@ trainer_stats = trainer.train()
 
 model.save_pretrained("lora_model")
 tokenizer.save_pretrained("lora_model")
+
+model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
+tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
