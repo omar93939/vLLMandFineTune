@@ -60,7 +60,5 @@ trainer = SFTTrainer(
 
 trainer_stats = trainer.train()
 
-model.save_pretrained("outputs/merged")
-
-model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA-MERGED", token="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")
-tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA-MERGED", token="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")
+model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
+tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")

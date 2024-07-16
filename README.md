@@ -43,7 +43,7 @@ Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy 
     Header-Type: application/json,
     Body:
       {
-        "model": `model_name`,
+        "model": `model_name (LoRA name if applicable)`,
         "prompt": `Prompt`,
         "max_tokens": `max_tokens`,
         "temperature": `temperature (randomness)`,
