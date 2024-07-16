@@ -13,7 +13,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 
 from datasets import load_dataset
-dataset = load_dataset("PornMixer/ExpectedGeneration")
+dataset = load_dataset("PornMixer/ExpectedGeneration", split="train")
 
 model = FastLanguageModel.get_peft_model(
   model,
