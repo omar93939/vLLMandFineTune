@@ -17,6 +17,7 @@ train = load_dataset("PornMixer/ExpectedGeneration", split="train")
 validate = load_dataset("PornMixer/ValidationGeneration", split="train")
 test = load_dataset("PornMixer/TestGeneration", split="train")
 
+print(test)
 
 model = FastLanguageModel.get_peft_model(
   model,
