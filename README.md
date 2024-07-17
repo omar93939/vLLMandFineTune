@@ -22,15 +22,14 @@ SSH into the Pod (PuTTY > Runpod):
 3. 
   pip install vllm
 
-3.5. 
-  IF long context size model (i.e. Qwen2 7b & 131072)
-
 4. 
   python -m vllm.entrypoints.openai.api_server --model `model_name` *if lora* --enable-lora --lora-modules `name`=`path` `name`=`path`
 
   (example LoRA: 
+    apt update
+    apt install git-lfs
     git clone https://huggingface.co/PornMixer/dolphin-2.9.2-qwen2-7b-LoRA
-    python -m vllm.entrypoints.openai.api_server --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=dolphin-2.9.2-qwen2-7b-LoRA
+    python -m vllm.entrypoints.openai.api_server --max_model_len 16000 --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=dolphin-2.9.2-qwen2-7b-LoRA
   )
 
 5. 
@@ -57,9 +56,10 @@ Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy 
     -H "Content-Type: application/json" \
     -d '{
         "model": "lora",
-        "prompt": "San Francisco is a",
-        "max_tokens": 7,
-        "temperature": 0
+        "prompt": "USER:hey, what's up?CREATOR:",
+        "max_tokens": 200,
+        "temperature": 0.1,
+        "stop": ["SYSTEM:", "USER:", "CREATOR:", "CREATORRESPONSE:", "USERRESPONSE:"]
     }'
 
   {
