@@ -48,12 +48,12 @@ trainer = SFTTrainer(
     gradient_accumulation_steps= 4,
 
     warmup_steps = 5,
-    max_steps = 60,
+    num_train_epochs = 3,
 
     learning_rate = 2e-4,
     fp16 = not is_bfloat16_supported(),
     bf16 = is_bfloat16_supported(),
-    logging_steps = 1,
+    logging_steps = 10,
     optim = "adamw_8bit",
     weight_decay = 0.01,
     lr_scheduler_type = "linear",
