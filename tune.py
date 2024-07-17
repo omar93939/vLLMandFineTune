@@ -15,11 +15,9 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 from datasets import load_dataset
 train = load_dataset("PornMixer/ExpectedGeneration", split="train")
 validate = load_dataset("PornMixer/ValidationGeneration", split="train")
-test = load_dataset("PornMixer/TestGeneration", split="train")
 
 print(train)
 print(validate)
-print(test)
 
 model = FastLanguageModel.get_peft_model(
   model,
@@ -49,7 +47,7 @@ trainer = SFTTrainer(
     gradient_accumulation_steps= 4,
 
     warmup_steps = 5,
-    num_train_epochs = 1,
+    num_train_epochs = 10,
 
     learning_rate = 2e-4,
     fp16 = not is_bfloat16_supported(),
@@ -72,9 +70,5 @@ trainer = SFTTrainer(
 
 trainer_stats = trainer.train()
 
-test_results = trainer.evaluate(eval_dataset = test)
-
-model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
-tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
-
-print("Test results:", test_results)
+model.push_to_hub("PornMixer/lora", token="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")
+tokenizer.push_to_hub("PornMixer/lora", token="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")

@@ -28,8 +28,8 @@ SSH into the Pod (PuTTY > Runpod):
   (example LoRA: 
     apt update
     apt install git-lfs
-    git clone https://huggingface.co/PornMixer/dolphin-2.9.2-qwen2-7b-LoRA
-    python -m vllm.entrypoints.openai.api_server --max_model_len 16000 --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=dolphin-2.9.2-qwen2-7b-LoRA
+    git clone https://huggingface.co/PornMixer/lora
+    python -m vllm.entrypoints.openai.api_server --max_model_len 16000 --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=lora
   )
 
 5. 
