@@ -41,8 +41,6 @@ from unsloth import is_bfloat16_supported
 trainer = SFTTrainer(
   model = model,
   tokenizer = tokenizer,
-  train_dataset = train,
-  eval_dataset = validate,
   dataset_text_field = "Creator",
   max_seq_length = max_seq_length,
   dataset_num_proc = 2,
@@ -66,8 +64,11 @@ trainer = SFTTrainer(
     eval_steps = 10,
     save_steps = 10,
     load_best_model_at_end = True,
-    metric_for_best_model = "eval_loss"
-  )
+    metric_for_best_model = "eval_loss",
+    remove_unused_columns = False
+  ),
+  train_dataset = train,
+  eval_dataset = validate,
 )
 
 trainer_stats = trainer.train()
