@@ -64,8 +64,7 @@ trainer = SFTTrainer(
     eval_steps = 10,
     save_steps = 10,
     load_best_model_at_end = True,
-    metric_for_best_model = "eval_loss",
-    remove_unused_columns = False
+    metric_for_best_model = "eval_loss"
   ),
   train_dataset = train,
   eval_dataset = validate,
