@@ -13,7 +13,10 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 
 from datasets import load_dataset
-dataset = load_dataset("PornMixer/ExpectedGeneration", split="train")
+train = load_dataset("PornMixer/ExpectedGeneration", split="train")
+validate = load_dataset("PornMixer/ValidationGeneration", split="validation")
+test = load_dataset("PornMixer/TestGeneration", split="test")
+
 
 model = FastLanguageModel.get_peft_model(
   model,
@@ -35,7 +38,8 @@ from unsloth import is_bfloat16_supported
 trainer = SFTTrainer(
   model = model,
   tokenizer = tokenizer,
-  train_dataset = dataset,
+  train_dataset = train,
+  eval_dataset = validate,
   dataset_text_field = "Creator",
   max_seq_length = max_seq_length,
   dataset_num_proc = 2,
@@ -55,10 +59,19 @@ trainer = SFTTrainer(
     lr_scheduler_type = "linear",
     seed = 3407,
     output_dir = "outputs",
+    evaluation_strategy = "steps",
+    eval_steps = 10,
+    save_steps = 10,
+    load_best_model_at_end = True,
+    metric_for_best_model = "eval_loss"
   )
 )
 
 trainer_stats = trainer.train()
 
+test_results = trainer.evaluate(eval_dataset = test)
+
 model.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
 tokenizer.push_to_hub("PornMixer/dolphin-2.9.2-qwen2-7b-LoRA", token="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")
+
+print("Test results:", test_results)
