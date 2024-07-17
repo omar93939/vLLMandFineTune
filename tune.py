@@ -14,8 +14,8 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 from datasets import load_dataset
 train = load_dataset("PornMixer/ExpectedGeneration", split="train")
-validate = load_dataset("PornMixer/ValidationGeneration", split="validation")
-test = load_dataset("PornMixer/TestGeneration", split="test")
+validate = load_dataset("PornMixer/ValidationGeneration", split="train")
+test = load_dataset("PornMixer/TestGeneration", split="train")
 
 
 model = FastLanguageModel.get_peft_model(
