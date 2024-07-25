@@ -1,10 +1,9 @@
-# Use a base image with Python
 FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Install Python dependencies, Update package lists, install additional packages, clean up, Clone the repository and set up Git LFS
+# Install Python dependencies, update package lists, install additional packages, clean up
 RUN apt-get update && \
     apt-get install -y \
     git-lfs && \
@@ -12,6 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     pip install vllm
 
+# Expose ports 8000 and 22
 EXPOSE 8000
 EXPOSE 22
 
