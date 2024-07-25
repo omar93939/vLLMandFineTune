@@ -1,5 +1,4 @@
 from unsloth import FastLanguageModel
-import torch
 
 max_seq_length = 16000
 dtype = None

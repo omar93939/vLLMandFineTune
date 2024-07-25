@@ -7,10 +7,6 @@ RunPod Pytorch 2.1 Template
   Expose HTTP Port 8000
 
 3. 
-Edit Pod
-  Expose HTTP Port 8000 (If it's not already by default)
-
-2. 
 SSH into the Pod (PuTTY > Runpod):
   Connect > TCP Port Mappings
   Copy `Public IP` and paste it in "Host Name (or IP address)"
@@ -19,10 +15,10 @@ SSH into the Pod (PuTTY > Runpod):
   Connect Once (or Accept, up to you :shrug:)
   Root
 
-3. 
+4. 
   pip install vllm
 
-4. 
+5. 
   python -m vllm.entrypoints.openai.api_server --model `model_name` *if lora* --enable-lora --lora-modules `name`=`path` `name`=`path`
 
   (example LoRA: 
@@ -32,8 +28,11 @@ SSH into the Pod (PuTTY > Runpod):
     python -m vllm.entrypoints.openai.api_server --max_model_len 16000 --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=lora
   )
 
-5. 
+6. 
 Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy Link Address`
+
+7. 
+Send prompt to `link`v1/completions
 
 
 
@@ -56,8 +55,8 @@ Runpod Pod > Connection Options > Right click `Connect to HTTP Service` > `Copy 
     -H "Content-Type: application/json" \
     -d '{
         "model": "lora",
-        "prompt": "USER:hey, what's up?CREATOR:",
-        "max_tokens": 200,
+        "prompt": "USER:hey, whats your name?CREATORRESPONSE:",
+        "max_tokens": 16000,
         "temperature": 0.1,
         "stop": ["SYSTEM:", "USER:", "CREATOR:", "CREATORRESPONSE:", "USERRESPONSE:"]
     }'
