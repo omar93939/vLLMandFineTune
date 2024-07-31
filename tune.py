@@ -1,11 +1,11 @@
 from unsloth import FastLanguageModel
 
-max_seq_length = 16000
+max_seq_length = 128000
 dtype = None
 load_in_4bit = True
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-  model_name = "cognitivecomputations/dolphin-2.9.2-qwen2-7b",
+  model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct",
   max_seq_length = max_seq_length,
   dtype = dtype,
   load_in_4bit = load_in_4bit
