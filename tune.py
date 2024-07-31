@@ -3,9 +3,12 @@ from unsloth import FastLanguageModel
 max_seq_length = 128000
 dtype = None
 load_in_4bit = True
+model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+
+print("model name: " + model_name)
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-  model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  model_name = model_name,
   max_seq_length = max_seq_length,
   dtype = dtype,
   load_in_4bit = load_in_4bit
@@ -57,7 +60,7 @@ trainer = SFTTrainer(
     lr_scheduler_type = "linear",
     seed = 3407,
     output_dir = "outputs",
-    evaluation_strategy = "steps",
+    eval_strategy = "steps",
     eval_steps = 10,
     save_steps = 10,
     load_best_model_at_end = True,
