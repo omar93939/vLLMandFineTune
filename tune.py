@@ -1,4 +1,6 @@
 from unsloth import FastLanguageModel
+import torch
+import gc
 
 max_seq_length = 128000
 dtype = None
@@ -72,5 +74,19 @@ trainer = SFTTrainer(
 
 trainer_stats = trainer.train()
 
-model.push_to_hub("PornMixer/lora", token="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")
-tokenizer.push_to_hub("PornMixer/lora", token="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")
+model.push_to_hub("PornMixer/LoRA", token="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")
+tokenizer.push_to_hub("PornMixer/LoRA", token="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")
+
+lora_adapter_path = "lora_adapter"
+model.save_pretrained(lora_adapter_path, save_adapter=True, save_config=True)
+
+del model
+gc.collect()
+if torch.cuda.is_available():
+  torch.cuda.empty_cache()
+
+merged_model = FastLanguageModel.from_pretrained(model_name).to("cuda")
+merged_model = merged_model.merge_and_unload(lora_adapter_path)
+
+merged_model.push_to_hub("PornMixer/Model", token="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")
+tokenizer.push_to_hub("PornMixer/Model", token="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")
