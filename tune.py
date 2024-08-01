@@ -1,6 +1,4 @@
 from unsloth import FastLanguageModel
-import torch
-import gc
 
 max_seq_length = 128000
 dtype = None
@@ -72,7 +70,7 @@ trainer = SFTTrainer(
   eval_dataset = validate,
 )
 
-trainer_stats = trainer.train(resume_from_checkpoint = True)
+trainer_stats = trainer.train()
 
 model.push_to_hub_merged("PornMixer/LoRA", tokenizer, save_method = "lora", token = "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")
 model.push_to_hub_merged("PornMixer/Model", tokenizer, save_method = "merged_16bit", token = "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")
