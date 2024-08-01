@@ -85,7 +85,10 @@ gc.collect()
 if torch.cuda.is_available():
   torch.cuda.empty_cache()
 
-merged_model = FastLanguageModel.from_pretrained(model_name).to("cuda")
+merged_model = FastLanguageModel.from_pretrained(
+  model_name = model_name,
+  max_seq_length = max_seq_length
+)
 merged_model = merged_model.merge_and_unload(lora_adapter_path)
 
 merged_model.push_to_hub("PornMixer/Model", token="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")
