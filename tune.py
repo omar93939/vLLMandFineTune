@@ -72,24 +72,7 @@ trainer = SFTTrainer(
   eval_dataset = validate,
 )
 
-trainer_stats = trainer.train()
+trainer_stats = trainer.train(resume_from_checkpoint = True)
 
-model.push_to_hub("PornMixer/LoRA", token="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")
-tokenizer.push_to_hub("PornMixer/LoRA", token="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")
-
-lora_adapter_path = "lora_adapter"
-model.save_pretrained(lora_adapter_path, save_adapter=True, save_config=True)
-
-del model
-gc.collect()
-if torch.cuda.is_available():
-  torch.cuda.empty_cache()
-
-merged_model = FastLanguageModel.from_pretrained(
-  model_name = model_name,
-  max_seq_length = max_seq_length
-)
-merged_model = merged_model.merge_and_unload(lora_adapter_path)
-
-merged_model.push_to_hub("PornMixer/Model", token="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")
-tokenizer.push_to_hub("PornMixer/Model", token="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")
+model.push_to_hub_merged("PornMixer/LoRA", tokenizer, save_method = "lora", token = "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")
+model.push_to_hub_merged("PornMixer/Model", tokenizer, save_method = "merged_16bit", token = "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")
