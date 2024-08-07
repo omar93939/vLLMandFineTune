@@ -46,7 +46,7 @@ trainer = SFTTrainer(
   dataset_num_proc = 2,
   args = TrainingArguments(
     per_device_train_batch_size = 2,
-    gradient_accumulation_steps= 4,
+    # gradient_accumulation_steps = 4,
 
     warmup_steps = 5,
     num_train_epochs = 5,
