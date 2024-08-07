@@ -51,7 +51,7 @@ trainer = SFTTrainer(
     warmup_steps = 5,
     num_train_epochs = 5,
 
-    learning_rate = 2e-4,
+    learning_rate = 1e-4,
     fp16 = not is_bfloat16_supported(),
     bf16 = is_bfloat16_supported(),
     logging_steps = 10,
