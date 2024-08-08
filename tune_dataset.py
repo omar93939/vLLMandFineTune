@@ -1,6 +1,6 @@
 from unsloth import FastLanguageModel
 
-max_seq_length = 128000
+max_seq_length = 32000
 dtype = None
 load_in_4bit = True
 model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
