@@ -10,20 +10,22 @@ Check cuda version:
   exit()
 
 3. 
-  *if cuda 11.8*
-  *if ampere or newer*
-  pip install "unsloth[cu118-ampere] @ git+https://github.com/unslothai/unsloth.git"
-  *if older*
-  pip install "unsloth[cu118] @ git+https://github.com/unslothai/unsloth.git"
-
   *if cuda 12.1*
   *if ampere or newer*
   pip install "unsloth[cu121-ampere] @ git+https://github.com/unslothai/unsloth.git"
   *if older*
   pip install "unsloth[cu121] @ git+https://github.com/unslothai/unsloth.git"
 
+  *if cuda 11.8*
+  *if ampere or newer*
+  pip install "unsloth[cu118-ampere] @ git+https://github.com/unslothai/unsloth.git"
+  *if older*
+  pip install "unsloth[cu118] @ git+https://github.com/unslothai/unsloth.git"
+
 4. 
   git clone https://github.com/omar93939/vLLMandFineTune.git
 
 5. 
   python vLLMandFineTune/tune.py
+  OR
+  python vLLMandFineTune/tune_dataset.py
