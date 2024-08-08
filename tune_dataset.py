@@ -16,10 +16,11 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 from datasets import load_dataset
 train = load_dataset("PornMixer/DatasetGeneration", split="train")
-validate = load_dataset("PornMixer/DatasetValidation", split="train")
+# Too much VRam usage to validate
+# validate = load_dataset("PornMixer/DatasetValidation", split="train")
 
 print(train)
-print(validate)
+# print(validate)
 
 model = FastLanguageModel.get_peft_model(
   model,
@@ -67,7 +68,7 @@ trainer = SFTTrainer(
     metric_for_best_model = "eval_loss"
   ),
   train_dataset = train,
-  eval_dataset = validate,
+  # eval_dataset = validate,
 )
 
 trainer_stats = trainer.train()
