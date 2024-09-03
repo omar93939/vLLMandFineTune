@@ -4,7 +4,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Install Python dependencies, update package lists, install additional packages, clean up
-RUN pip install vllm
+RUN pip install --no-cache-dir vllm
 
 # Expose port 8000 (http)
 EXPOSE 8000
