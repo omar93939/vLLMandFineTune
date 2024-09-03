@@ -4,16 +4,12 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Install Python dependencies, update package lists, install additional packages, clean up
-RUN apt-get update && \
-    apt-get install -y \
-    git-lfs && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip install vllm
+RUN pip install vllm
 
-# Expose ports 8000 and 22
+# Expose port 8000 (http)
 EXPOSE 8000
-EXPOSE 22
 
 # Command to run the VLLM API server
-CMD ["sh", "-c", "git clone https://huggingface.co/PornMixer/lora && python -m vllm.entrypoints.openai.api_server --max_model_len 16000 --model cognitivecomputations/dolphin-2.9.2-qwen2-7b --enable-lora --lora-modules lora=lora"]
+ENTRYPOINT ["python", "-m", "vllm.entrypoints.openai.api_server"]
+# Overwriteable default behavior
+CMD ["--max_model_len", "128000", "--model", "PornMixer/Model", "--download-dir", "/.cache/huggingface/"]
