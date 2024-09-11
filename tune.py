@@ -5,7 +5,7 @@ dtype = None
 load_in_4bit = True
 model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 
-print("model name: " + model_name)
+print("model: " + model_name)
 
 model, tokenizer = FastLanguageModel.from_pretrained(
   model_name = model_name,
