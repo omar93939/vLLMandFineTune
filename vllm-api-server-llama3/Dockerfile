@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir vllm
 EXPOSE 8000
 
 # Command to run the VLLM API server
-ENTRYPOINT ["python", "-m", "vllm.entrypoints.openai.api_server"]
+ENTRYPOINT ["vllm", "serve"]
 # Overwriteable default behavior
-CMD ["--max_model_len", "128000", "--model", "PornMixer/Model", "--download-dir", "/.cache/huggingface/"]
+CMD ["PornMixer/Model", "--max_model_len", "128000", "--download-dir", "/.cache/huggingface/"]
