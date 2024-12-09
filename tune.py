@@ -39,7 +39,7 @@ from transformers import TrainingArguments, EarlyStoppingCallback
 from unsloth import is_bfloat16_supported
 
 callbacks = [
-  EarlyStoppingCallback(early_stopping_patience=3)
+  EarlyStoppingCallback(early_stopping_patience=2)
 ]
 
 trainer = SFTTrainer(
