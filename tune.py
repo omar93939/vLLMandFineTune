@@ -35,8 +35,12 @@ model = FastLanguageModel.get_peft_model(
 )
 
 from trl import SFTTrainer
-from transformers import TrainingArguments
+from transformers import TrainingArguments, EarlyStoppingCallback
 from unsloth import is_bfloat16_supported
+
+callbacks = [
+  EarlyStoppingCallback(early_stopping_patience=3)
+]
 
 trainer = SFTTrainer(
   model = model,
@@ -67,6 +71,7 @@ trainer = SFTTrainer(
   ),
   train_dataset = train,
   eval_dataset = validate,
+  callbacks = callbacks
 )
 
 trainer_stats = trainer.train()
