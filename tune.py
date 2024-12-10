@@ -52,7 +52,7 @@ trainer = SFTTrainer(
     per_device_train_batch_size = 8,
 
     warmup_steps = 5,
-    num_train_epochs = 10,
+    num_train_epochs = 4,
 
     learning_rate = 6e-5,
     fp16 = not is_bfloat16_supported(),
