@@ -1,22 +1,28 @@
-from unsloth import FastLanguageModel
+from unsloth import FastLanguageModel, PatchDPOTrainer
+from os import environ
+
+API_KEY = environ['PORNMIXER_HUGGINGFACE_APIKEY']
 
 max_seq_length = 128000
 dtype = None
 load_in_4bit = True
-model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+model_name = "PornMixer/SFTModel"
 
 print("model: " + model_name)
+
+PatchDPOTrainer()
 
 model, tokenizer = FastLanguageModel.from_pretrained(
   model_name = model_name,
   max_seq_length = max_seq_length,
   dtype = dtype,
-  load_in_4bit = load_in_4bit
+  load_in_4bit = load_in_4bit,
+  token = API_KEY
 )
 
 from datasets import load_dataset
-train = load_dataset("PornMixer/ExpectedGeneration", split="train")
-validate = load_dataset("PornMixer/ValidationGeneration", split="train")
+train = load_dataset("PornMixer/DPO_Train", split="train", token = API_KEY)
+validate = load_dataset("PornMixer/DPO_Eval", split="train", token = API_KEY)
 
 print(train)
 print(validate)
@@ -31,10 +37,11 @@ model = FastLanguageModel.get_peft_model(
   use_gradient_checkpointing = "unsloth",
   random_state = 3407,
   use_rslora = False,
-  loftq_config = None
+  loftq_config = None,
+  max_seq_length = max_seq_length
 )
 
-from trl import SFTTrainer
+from trl import DPOTrainer
 from transformers import TrainingArguments, EarlyStoppingCallback
 from unsloth import is_bfloat16_supported
 
@@ -42,7 +49,7 @@ callbacks = [
   EarlyStoppingCallback(early_stopping_patience=3)
 ]
 
-trainer = SFTTrainer(
+trainer = DPOTrainer(
   model = model,
   tokenizer = tokenizer,
   dataset_text_field = "Creator",
@@ -51,15 +58,15 @@ trainer = SFTTrainer(
   args = TrainingArguments(
     per_device_train_batch_size = 8,
 
-    warmup_steps = 5,
-    num_train_epochs = 6,
+    warmup_ratio = 0.1,
+    num_train_epochs = 5,
 
     learning_rate = 6e-5,
     fp16 = not is_bfloat16_supported(),
     bf16 = is_bfloat16_supported(),
-    logging_steps = 10,
+    logging_steps = 5,
     optim = "adamw_8bit",
-    weight_decay = 0.01,
+    weight_decay = 0.0001,
     lr_scheduler_type = "linear",
     seed = 3407,
     output_dir = "outputs",
@@ -69,6 +76,7 @@ trainer = SFTTrainer(
     load_best_model_at_end = True,
     metric_for_best_model = "eval_loss"
   ),
+  beta = 0.1,
   train_dataset = train,
   eval_dataset = validate,
   callbacks = callbacks
@@ -76,5 +84,5 @@ trainer = SFTTrainer(
 
 trainer_stats = trainer.train()
 
-model.push_to_hub_merged("PornMixer/LoRA", tokenizer, save_method = "lora", token = "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")
-model.push_to_hub_merged("PornMixer/Model", tokenizer, save_method = "merged_16bit", token = "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")
+model.push_to_hub_merged("PornMixer/DPOLoRA", tokenizer, save_method = "lora", token = API_KEY)
+model.push_to_hub_merged("PornMixer/DPOModel", tokenizer, save_method = "merged_16bit", token = API_KEY)
