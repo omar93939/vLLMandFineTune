@@ -1,11 +1,12 @@
 from unsloth import FastLanguageModel
 from os import environ
+from torch import bfloat16
 
 API_KEY = environ['HF_TOKEN']
 
 # Can increase this with more VRAM (https://github.com/unslothai/unsloth?tab=readme-ov-file#llama-31-8b-max-context-length)
 max_seq_length = 128000
-dtype = torch.bfloat16
+dtype = bfloat16
 load_in_4bit = True
 model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 
