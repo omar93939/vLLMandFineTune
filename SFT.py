@@ -61,8 +61,7 @@ trainer = SFTTrainer(
     num_train_epochs = 6,
 
     learning_rate = 6e-5,
-    fp16 = not is_bfloat16_supported(),
-    bf16 = is_bfloat16_supported(),
+    bf16 = True,
     logging_steps = 10,
     optim = "adamw_8bit",
     weight_decay = 0.0001,
