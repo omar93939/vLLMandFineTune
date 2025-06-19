@@ -21,6 +21,9 @@ from datasets import load_dataset
 train = load_dataset("PornMixer/SFT_Train", split="train", token = API_KEY)
 validate = load_dataset("PornMixer/SFT_Eval", split="train", token = API_KEY)
 
+train = train.rename_column("Creator", "text")
+validate = validate.rename_column("Creator", "text")
+
 print(train)
 print(validate)
 
@@ -49,7 +52,6 @@ callbacks = [
 trainer = SFTTrainer(
   model = model,
   tokenizer = tokenizer,
-  dataset_text_field = "Creator",
   max_seq_length = max_seq_length,
   dataset_num_proc = 2,
   args = TrainingArguments(
