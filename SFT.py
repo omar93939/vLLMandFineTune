@@ -28,6 +28,8 @@ data_files = {
 train = load_dataset("PornMixer/Dataset", data_files=data_files, split="train", token = API_KEY)
 validate = load_dataset("PornMixer/Dataset", data_files=data_files, split="validation", token = API_KEY)
 
+train, validate = train.rename_column("Creator", "text"), validate.rename_column("Creator", "text")
+
 print(train)
 print(validate)
 
