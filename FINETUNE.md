@@ -28,6 +28,6 @@ Check cuda version:
   git clone https://github.com/omar93939/vLLMandFineTune.git
 
 5. 
-  python vLLMandFineTune/tune.py
+  python vLLMandFineTune/SFT.py
   OR
   python vLLMandFineTune/tune_dataset.py
