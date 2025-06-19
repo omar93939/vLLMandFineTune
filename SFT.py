@@ -1,10 +1,11 @@
 from unsloth import FastLanguageModel
 from os import environ
 
-API_KEY = environ['PORNMIXER_HUGGINGFACE_APIKEY']
+API_KEY = environ['HF_TOKEN']
 
+# Can increase this with more VRAM (https://github.com/unslothai/unsloth?tab=readme-ov-file#llama-31-8b-max-context-length)
 max_seq_length = 128000
-dtype = None
+dtype = "bf16"
 load_in_4bit = True
 model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 
@@ -18,11 +19,13 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 
 from datasets import load_dataset
-train = load_dataset("PornMixer/SFT_Train", split="train", token = API_KEY)
-validate = load_dataset("PornMixer/SFT_Eval", split="train", token = API_KEY)
+data_files = {
+  "train": "SFT_train.jsonl",
+  "validation": "SFT_validation.jsonl"
+}
 
-train = train.rename_column("Creator", "text")
-validate = validate.rename_column("Creator", "text")
+train = load_dataset("PornMixer/Dataset", data_files=data_files, split="train", token = API_KEY)
+validate = load_dataset("PornMixer/Dataset", data_files=data_files, split="validation", token = API_KEY)
 
 print(train)
 print(validate)
@@ -58,11 +61,11 @@ trainer = SFTTrainer(
     per_device_train_batch_size = 8,
 
     warmup_ratio = 0.1,
-    num_train_epochs = 6,
+    num_train_epochs = 3,
 
-    learning_rate = 6e-5,
-    fp16 = False,
-    bf16 = True,
+    learning_rate = 8e-5,
+    fp16 = not is_bfloat16_supported(),
+    bf16 = is_bfloat16_supported(),
     logging_steps = 10,
     optim = "adamw_8bit",
     weight_decay = 0.0001,
