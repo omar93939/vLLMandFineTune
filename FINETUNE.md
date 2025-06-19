@@ -10,6 +10,8 @@ Check cuda version:
   exit()
 
 3. 
+  pip install unsloth
+
   *if cuda 12.1*
   *if ampere or newer*
   pip install "unsloth[cu121-ampere] @ git+https://github.com/unslothai/unsloth.git"
