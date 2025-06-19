@@ -87,6 +87,8 @@ trainer = SFTTrainer(
 )
 
 trainer_stats = trainer.train()
+if trainer_stats is not None:
+  print("Training stats:", trainer_stats)
 
 model.push_to_hub_merged("PornMixer/SFTLoRA", tokenizer, save_method = "lora", token = API_KEY)
 model.push_to_hub_merged("PornMixer/SFTModel", tokenizer, save_method = "merged_16bit", token = API_KEY)
