@@ -20,6 +20,7 @@ RUN apt-get update && \
     python${PYTHON_VERSION}-venv \
     build-essential \
     cmake \
+    libnuma-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a virtual environment to encapsulate dependencies.
@@ -31,8 +32,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Upgrade pip and install vllm.
 # --no-cache-dir reduces layer size. Because this stage has CUDA, pip will
 # download the correct GPU-enabled wheels for PyTorch and other dependencies.
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir vllm
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir vllm
 
 # ---
 

@@ -18,8 +18,8 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 
 from datasets import load_dataset
-train = load_dataset("PornMixer/SFT_Train", split="train")
-validate = load_dataset("PornMixer/SFT_Eval", split="train")
+train = load_dataset("PornMixer/SFT_Train", split="train", token = API_KEY)
+validate = load_dataset("PornMixer/SFT_Eval", split="train", token = API_KEY)
 
 print(train)
 print(validate)
