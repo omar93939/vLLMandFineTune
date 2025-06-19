@@ -61,6 +61,7 @@ trainer = SFTTrainer(
     num_train_epochs = 6,
 
     learning_rate = 6e-5,
+    fp16 = False,
     bf16 = True,
     logging_steps = 10,
     optim = "adamw_8bit",
