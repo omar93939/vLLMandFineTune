@@ -67,7 +67,7 @@ trainer = SFTTrainer(
     warmup_ratio = 0.1,
     num_train_epochs = 3,
 
-    learning_rate = 6e-5,
+    learning_rate = 8e-5,
     fp16 = not is_bfloat16_supported(),
     bf16 = is_bfloat16_supported(),
     logging_steps = 10,
@@ -77,8 +77,8 @@ trainer = SFTTrainer(
     seed = 3407,
     output_dir = "outputs",
     eval_strategy = "steps",
-    eval_steps = 10,
-    save_steps = 10,
+    eval_steps = 25,
+    save_steps = 25,
     load_best_model_at_end = True,
     metric_for_best_model = "eval_loss"
   ),
